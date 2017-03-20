@@ -1,0 +1,72 @@
+﻿<Window x:Class="BluetoothDemo.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:BluetoothDemo.ViewModel"
+        Title="Bluetooth devices"
+        Width="525"
+        Height="350"
+        d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel}"
+        mc:Ignorable="d">
+
+    <Grid Margin="10" IsEnabled="{Binding ControlsEnabled}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Margin="0, 0, 0, 20" Text="{Binding Status}" />
+        <ListView Margin="0, 0, 10, 20"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  ItemsSource="{Binding Devices}"
+                  SelectionMode="Multiple">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <ListView Margin="0, 0, 10, 20"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  ItemsSource="{Binding WatchedDevices}"
+                  SelectionMode="Multiple">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <Button Margin="0, 0, 10, 0"
+                Grid.Row="2"
+                Grid.Column="0"
+                Content="Watch selected"
+                Command="{Binding WatchCommand}" />
+
+        <Button Margin="0, 0, 10, 0"
+                Grid.Row="2"
+                Grid.Column="1"
+                Content="Removed from wathed"
+                Command="{Binding RemoveWatchCommand}" />
+
+        <StatusBar Margin="0, 20, 0, 0"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2">
+
+            <TextBlock Text="{Binding Footer}" />
+        </StatusBar>
+
+    </Grid>
+</Window>
