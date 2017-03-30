@@ -12,5 +12,10 @@ namespace BluetoothDemo.Security
         {
             return CryptoService.Generate256BitsOfRandomEntropy();
         }
+
+        public byte[] GetKey(int byteCount)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -48,12 +48,12 @@ namespace BluetoothDemo.Bluetooth
 
         public bool Equals(Device x, Device y)
         {
-            return x.DeviceName.Equals(y.DeviceName);
+            return x.DeviceInfo.DeviceAddress == y.DeviceInfo.DeviceAddress;
         }
 
         public int GetHashCode(Device obj)
         {
-            return obj.DeviceName.GetHashCode();
+            return obj.DeviceInfo.DeviceAddress.GetHashCode();
         }
 
         public override string ToString()

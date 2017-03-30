@@ -124,11 +124,13 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Monads\MayBeObjects.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Security\IKeyProvider.cs" />
+    <Compile Include="Security\RsaKeyProvider.cs" />
     <Compile Include="Security\SecureStringWrapper.cs" />
     <Compile Include="Security\CryptoService.cs" />
     <Compile Include="Security\DefaultSecurityProvider.cs" />
     <Compile Include="Security\ICryptoService.cs" />
-    <Compile Include="Security\IKeyProvider.cs" />
     <Compile Include="Security\ISecureStorageProvider.cs" />
     <Compile Include="Security\ISecurityProvider.cs" />
     <Compile Include="Security\MachineKeyProvider.cs" />
@@ -146,6 +148,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Platform\IUser32.cs" />
+    <Compile Include="Security\Storage.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Platform\User32.cs" />

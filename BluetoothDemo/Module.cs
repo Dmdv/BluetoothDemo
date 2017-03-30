@@ -12,7 +12,7 @@ namespace BluetoothDemo
             // services
 
             builder.RegisterType<MachineKeyProvider>().As<IKeyProvider>();
-            builder.RegisterType<CryptoService>().As<ICryptoService>();
+            builder.RegisterType<CryptoService>().As<ICryptoService>().SingleInstance();
             builder.RegisterType<SecureStorageProvider>().As<ISecureStorageProvider>();
             builder.RegisterType<DefaultSecurityProvider>().As<ISecurityProvider>();
 

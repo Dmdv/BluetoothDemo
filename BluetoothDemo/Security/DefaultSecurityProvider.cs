@@ -16,5 +16,10 @@ namespace BluetoothDemo.Security
         {
             _service.Encrypt(key, value);
         }
+
+        public byte[] Restore(string key)
+        {
+            return _service.Decrypt(key);
+        }
     }
 }

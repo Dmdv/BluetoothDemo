@@ -102,7 +102,7 @@ namespace BluetoothDemo.ViewModel
 
                 foreach (var device in devices)
                 {
-                    msg = $"{device.DeviceName} found";
+                    msg = $"{device.DeviceInfo.DeviceAddress} found";
                     Footer = msg;
                     _log.Log(msg);
                 }

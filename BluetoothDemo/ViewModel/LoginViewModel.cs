@@ -24,10 +24,16 @@ namespace BluetoothDemo.ViewModel
             _securityProvider = securityProvider;
             _log = log;
 
-            OpenWindow = new AsyncRelayCommand(ExecuteOpenWindow);
+            OpenWindowCommand = new AsyncRelayCommand(ExecuteOpenWindow);
+            SaveCredsCommand = new RelayCommand(ExecuteSaveCreds);
+            RestoreCredsCommand = new RelayCommand(ExecuteRestoreCreds);
         }
 
-        public RelayCommand OpenWindow { get; private set; }
+        public RelayCommand OpenWindowCommand { get; private set; }
+
+        public RelayCommand SaveCredsCommand { get; private set; }
+
+        public RelayCommand RestoreCredsCommand { get; set; }
 
         [DoNotNotify]
         public SecureString Token { get; set; }
@@ -38,7 +44,16 @@ namespace BluetoothDemo.ViewModel
 
         public bool IsError { get; private set; }
 
-        private async Task ExecuteOpenWindow()
+        public string RestoredLogin { get; set; }
+
+        public string RestoredPassword { get; set; }
+
+        private void ExecuteRestoreCreds()
+        {
+            RestoreCreds();
+        }
+
+        private void ExecuteSaveCreds()
         {
             if (string.IsNullOrEmpty(LoginName) || (Token?.Length).GetValueOrDefault() == 0)
             {
@@ -50,7 +65,10 @@ namespace BluetoothDemo.ViewModel
             IsError = false;
 
             SaveCredentials();
+        }
 
+        private async Task ExecuteOpenWindow()
+        {
             GetViewModel<MainViewModel>()
                 .ShowAsync(NavigationConstants.IsDialog.ToValue(false));
 
@@ -63,12 +81,27 @@ namespace BluetoothDemo.ViewModel
 
             _securityProvider.Save("login", buffer);
 
-            using (var wrapper = new SecureStringWrapper(Token))
+            using (var wrapper = new SecureStringWrapper(Token, Encoding.UTF8))
             {
                 _securityProvider.Save("token", wrapper.ToByteArray());
             }
 
             _log.Log("Credential are saved");
+        }
+
+        private void RestoreCreds()
+        {
+            var restore = _securityProvider.Restore("token");
+            if (restore != null)
+            {
+                RestoredPassword = Encoding.UTF8.GetString(restore);
+            }
+
+            var restore2 = _securityProvider.Restore("login");
+            if (restore2 != null)
+            {
+                RestoredLogin = Encoding.UTF8.GetString(restore2);
+            }
         }
     }
 }

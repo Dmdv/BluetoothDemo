@@ -6,5 +6,8 @@ namespace BluetoothDemo.Security
     {
         [NotNull]
         byte[] GetKey();
+
+        [NotNull]
+        byte[] GetKey(int byteCount);
     }
 }
